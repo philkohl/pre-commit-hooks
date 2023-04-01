@@ -40,6 +40,7 @@ def sort_property_files(
     if not enforce_all:
         filenames_filtered &= added_files()
 
+    print("Sort files", filenames_filtered)
     try:
         for filename in filenames_filtered:
             print(f"Sort file: '{filename}'")
