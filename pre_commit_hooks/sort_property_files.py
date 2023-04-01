@@ -70,6 +70,7 @@ def main(argv: Sequence[str] | None = None) -> int:
     )
     args = parser.parse_args(argv)
 
+    print(f"Args: '{argv}'")
     return sort_property_files(
         args.filenames,
         enforce_all=args.enforce_all,
