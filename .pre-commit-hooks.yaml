@@ -4,4 +4,4 @@
     entry: sort-property-files
     language: python
     pass_filenames: true
-    stages: [commit, push, manual]
+    files: .*\.properties

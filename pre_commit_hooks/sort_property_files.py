@@ -3,6 +3,8 @@ from __future__ import annotations
 import argparse
 from typing import Sequence
 
+import typing
+
 from pre_commit_hooks.util import added_files
 
 class PropertyEntry:
@@ -34,24 +36,21 @@ def sort_file(filename):
 
 
 def sort_property_files(
-        filenames: Sequence[str],
-        *,
-        enforce_all: bool = False,
+        filenames: typing.List[str],
+        autofix: bool = False
 ) -> int:
     # Find all added files that are also in the list of files pre-commit tells
     # us about
+    print(filenames)
     retv = 0
-    filenames_filtered = set(filenames)
-
-    if not enforce_all:
-        filenames_filtered &= added_files()
-
-    print("Sort files", filenames_filtered)
     try:
-        for filename in filenames_filtered:
-            print(f"Sort file: '{filename}'")
-            sort_file(filename)
-            retv = 1
+        for filename in filenames:
+            if autofix:
+                print(f"Sort file: '{filename}'")
+                sort_file(filename)
+                retv = 1
+            else:
+                print(f"Do not sort file: '{filename}'")
     except Exception as e:
         print(e)
         retv = 1
@@ -59,22 +58,31 @@ def sort_property_files(
     return retv
 
 
-def main(argv: Sequence[str] | None = None) -> int:
+def main(argv: typing.Optional[typing.List[str]] = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        'filenames', nargs='*',
-        help='Filenames pre-commit believes are changed.',
+        "--autofix",
+        action="store_true",
+        dest="autofix",
+        help="Automatically fixes encountered not-pretty-formatted files",
     )
     parser.add_argument(
-        '--enforce-all', action='store_true',
-        help='Enforce all files are checked, not just staged files.',
+        "--enforce-all",
+        action="store_true",
+        dest="enforce_all",
+        help="All files",
     )
+
+    parser.add_argument("filenames", nargs="*", help="Filenames to fix")
     args = parser.parse_args(argv)
 
     print(f"Args: '{argv}'")
+    print(f"Args: '{args}'")
+    print(f"Files: '{args.filenames}'")
+
     return sort_property_files(
         args.filenames,
-        enforce_all=args.enforce_all,
+        autofix=args.autofix
     )
 
 
