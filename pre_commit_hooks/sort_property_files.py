@@ -51,6 +51,7 @@ def sort_property_files(
         for filename in filenames_filtered:
             print(f"Sort file: '{filename}'")
             sort_file(filename)
+            retv = 1
     except Exception as e:
         print(e)
         retv = 1
