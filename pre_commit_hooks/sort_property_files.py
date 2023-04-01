@@ -40,9 +40,12 @@ def sort_property_files(
     if not enforce_all:
         filenames_filtered &= added_files()
 
-    for filename in filenames_filtered:
-        print(f"Sort file: '{filename}'")
-        sort_file(filename)
+    try:
+        for filename in filenames_filtered:
+            print(f"Sort file: '{filename}'")
+            sort_file(filename)
+    except Exception as e:
+        print(e)
         retv = 1
 
     return retv
