@@ -3,4 +3,5 @@
     description: sort entries of property files alphabetically
     entry: sort-property-files
     language: python
+    pass_filenames: true
     stages: [commit, push, manual]
