@@ -1,11 +1,8 @@
 from __future__ import annotations
 
 import argparse
-from typing import Sequence
-
 import typing
 
-from pre_commit_hooks.util import added_files
 
 class PropertyEntry:
     def __init__(self, input: str):
