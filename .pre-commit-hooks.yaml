@@ -1,6 +1,6 @@
 -   id: sort-property-files
-    name: sort property files
-    description: sort entries of property files alphabetically
+    name: Sort Property Files
+    description: Sort entries of property files alphabetically
     entry: sort-property-files
     language: python
     pass_filenames: true
